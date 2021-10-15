@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/global-plays', [GlobalPlayController::class, 'getGobalPlays']);
+Route::get('/global-plays', [GlobalPlayController::class, 'getAllGlobalPlays']);
+
+Route::post('/global-plays', [GlobalPlayController::class, 'storeGlobalPlay']);
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

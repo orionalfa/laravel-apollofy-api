@@ -16,9 +16,9 @@ class CreateGlobalPlaysHistory extends Migration
         Schema::create('global_plays', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string("track_id");
-            $table->string("track_owner_id");
-            $table->string("track_player_id");
+            $table->string('track_id');
+            $table->string('track_owner_id');
+            $table->string('track_player_id');
         });
     }
 

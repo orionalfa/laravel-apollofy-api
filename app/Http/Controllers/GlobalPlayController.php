@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class GlobalPlayController extends Controller
 {
     //
-    public function getGobalPlays()
+    public function getAllGlobalPlays()
     {
         $gobalPlay = new GlobalPlay();
         $data = $gobalPlay->get();
@@ -20,5 +20,18 @@ class GlobalPlayController extends Controller
             ];
 
         return response()->json($response);
+    }
+
+    public function storeGlobalPlay(Request $request)
+    {
+        $gbPlay = new GlobalPlay;
+        $gbPlay->track_id = $request->trackId;
+        $gbPlay->track_owner_id = $request->trackOwnerId;
+        $gbPlay->track_player_id = $request->trackPlayerId;
+        $gbPlay->save();
+
+        return response()->json([
+            "message" => "Play record created"
+        ], 201);
     }
 }
