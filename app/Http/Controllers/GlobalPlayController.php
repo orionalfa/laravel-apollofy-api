@@ -22,6 +22,20 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
+    public function getLastGlobalActivity()
+    {
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getLastGlobalActivity();
+        $response =
+            [
+                "status" => "success",
+                "lastActivity" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
     public function storeGlobalPlay(Request $request)
     {
         $gbPlay = new GlobalPlay;

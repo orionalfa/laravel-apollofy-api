@@ -22,6 +22,9 @@ Route::post('/global-plays', [GlobalPlayController::class, 'storeGlobalPlay']);
 Route::get('/related-plays', [RelatedPlayController::class, 'getAllRelatedPlays']);
 Route::post('/related-plays', [RelatedPlayController::class, 'storeRelatedPlay']);
 
+Route::get('/last-global-activity', [GlobalPlayController::class, 'getLastGlobalActivity']);
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
