@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\GlobalPlayController;
-use App\Models\GlobalPlay;
+use App\Http\Controllers\RelatedPlayController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +17,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/global-plays', [GlobalPlayController::class, 'getAllGlobalPlays']);
-
 Route::post('/global-plays', [GlobalPlayController::class, 'storeGlobalPlay']);
+
+Route::get('/related-plays', [RelatedPlayController::class, 'getAllRelatedPlays']);
+Route::post('/related-plays', [RelatedPlayController::class, 'storeRelatedPlay']);
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

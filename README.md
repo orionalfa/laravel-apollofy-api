@@ -62,3 +62,11 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Basic commands for starting up:
+
+> php artisan make:migration create_related_plays_table
+> php artisan migrate
+> $ php artisan make:model RelatedPlay
+> php artisan make:controller RelatedPlayController
+
