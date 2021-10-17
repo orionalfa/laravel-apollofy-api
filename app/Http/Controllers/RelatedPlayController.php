@@ -14,7 +14,7 @@ class RelatedPlayController extends Controller
         $response =
             [
                 "status" => "success",
-                "relatedPlays" => json_decode($data, true)
+                "data" => json_decode($data, true)
 
             ];
 

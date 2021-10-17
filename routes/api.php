@@ -24,6 +24,8 @@ Route::post('/related-plays', [RelatedPlayController::class, 'storeRelatedPlay']
 
 Route::get('/last-global-activity', [GlobalPlayController::class, 'getLastGlobalActivity']);
 
+Route::get('/yesterday-global-activity-by-3h', [GlobalPlayController::class, 'getYesterdayGlobalActivityBy3Hours']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

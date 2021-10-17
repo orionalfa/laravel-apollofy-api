@@ -15,7 +15,7 @@ class GlobalPlayController extends Controller
         $response =
             [
                 "status" => "success",
-                "gobalPlays" => json_decode($data, true)
+                "data" => json_decode($data, true)
 
             ];
 
@@ -29,12 +29,27 @@ class GlobalPlayController extends Controller
         $response =
             [
                 "status" => "success",
-                "lastActivity" => json_decode($data, true)
+                "data" => json_decode($data, true)
 
             ];
 
         return response()->json($response);
     }
+
+    public function getYesterdayGlobalActivityBy3Hours()
+    {
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getYesterdayGlobalActivityBy3Hours();
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
 
     public function storeGlobalPlay(Request $request)
     {
