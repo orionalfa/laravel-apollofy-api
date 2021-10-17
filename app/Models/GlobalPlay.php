@@ -21,6 +21,7 @@ class GlobalPlay extends Model
 
     public function getLastGlobalActivity()
     {
+        // TODO
         $data = DB::table('global_plays')
             ->whereDate('created_at', '>=', '2021-10-16')
             ->whereTime('created_at', '>', '16:00:00')
@@ -28,7 +29,7 @@ class GlobalPlay extends Model
         return $data;
     }
 
-    public function getYesterdayGlobalActivityBy3Hours()
+    public function getYesterdayGlobalActivityByHours()
     {
         $tz = new DateTimeZone('Europe/Madrid');
         $date = new DateTime("NOW", $tz);
@@ -39,15 +40,15 @@ class GlobalPlay extends Model
 
         $data = [];
 
-        for ($i = 0; $i < 8; $i++) {
-            $strI = strval($i * 3);
-            if ($i * 3 < 10) {
+        for ($i = 0; $i < 24; $i++) {
+            $strI = strval($i);
+            if ($i < 10) {
                 $start = "0" . $strI . ":00:00";
             } else {
                 $start = $strI . ":00:00";
             }
 
-            $j = ($i * 3) + 2;
+            $j = $i;
             $strJ = strval($j);
             if ($j < 10) {
                 $end = "0" . $strJ . ":59:59";
@@ -60,7 +61,7 @@ class GlobalPlay extends Model
                 ->whereTime('created_at', '<=', $end)
                 ->get();
 
-            // echo $start, " ", $end, "\n";
+            echo $start, " - ", $end, "\n";
             array_push($data, count($interval));
         }
 

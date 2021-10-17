@@ -36,10 +36,10 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
-    public function getYesterdayGlobalActivityBy3Hours()
+    public function getYesterdayGlobalActivityByHours()
     {
         $gobalPlay = new GlobalPlay();
-        $data = $gobalPlay->getYesterdayGlobalActivityBy3Hours();
+        $data = $gobalPlay->getYesterdayGlobalActivityByHours();
         $response =
             [
                 "status" => "success",
