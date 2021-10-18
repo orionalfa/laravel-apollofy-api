@@ -61,8 +61,16 @@ class GlobalPlay extends Model
                 ->whereTime('created_at', '<=', $end)
                 ->get();
 
-            echo $start, " - ", $end, "\n";
-            array_push($data, count($interval));
+            // echo $start, "-", $end, "\n";
+            $slot = $yesterday . " " . $start . " - " . $yesterday . " " . $end;
+
+            $intervalActivity = [
+                "interval" => $slot,
+                "playsCount" => count($interval)
+
+            ];
+            array_push($data, $intervalActivity);
+            // array_push($data, count($interval));
         }
 
         return json_encode($data);
