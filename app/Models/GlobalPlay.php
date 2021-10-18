@@ -62,10 +62,11 @@ class GlobalPlay extends Model
                 ->get();
 
             // echo $start, "-", $end, "\n";
-            $slot = $yesterday . " " . $start . " - " . $yesterday . " " . $end;
+            // $slot = $yesterday . " " . $start . " - " . $yesterday . " " . $end;
 
             $intervalActivity = [
-                "interval" => $slot,
+                "start" => $yesterday . " " . $start,
+                "end" => $yesterday . " " . $end,
                 "playsCount" => count($interval)
 
             ];
@@ -93,7 +94,7 @@ class GlobalPlay extends Model
 
         $tz = new DateTimeZone('Europe/Madrid');
         $date = new DateTime("NOW", $tz);
-        // ALERT : 3h interval because post timestamp has 2h gap with real time
+        // ALERT : 3h interval because post timestamp has -2h diff with real time
         $oneHourInterval = new DateInterval('PT3H');
         $date->sub($oneHourInterval);
 
@@ -109,6 +110,41 @@ class GlobalPlay extends Model
             ->get();
         return count($data);
     }
+
+    public function getLast24HoursPlaysByOwner($owner_id)
+    {
+        // echo 'getLast24HoursPlaysByOwner', "\n";
+
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
+        $today = $date->format("Y-m-d");
+
+        // ALERT : 26h interval because post timestamp has -2h diff with real time
+        $oneHourInterval = new DateInterval('PT26H');
+        $date->sub($oneHourInterval);
+        $yesterday = $date->format("Y-m-d");
+        $twentyFourHoursAgoTime = $date->format("h:i:s");
+
+        // echo $today, "\n";
+        // echo $yesterday, "\n";
+        // echo $twentyFourHoursAgoTime, "\n";
+
+        $dataYesterday = DB::table('global_plays')
+            ->where('track_owner_id', '=', $owner_id)
+            ->whereDate('created_at', '=', $yesterday)
+            ->whereTime('created_at', '>', $twentyFourHoursAgoTime)
+            ->get();
+
+        $dataToday = DB::table('global_plays')
+            ->where('track_owner_id', '=', $owner_id)
+            ->whereDate('created_at', '=', $today)
+            ->whereTime('created_at', '<', $twentyFourHoursAgoTime)
+            ->get();
+
+
+        return count($dataToday) + count($dataYesterday);
+    }
+
 
 
     use HasFactory;

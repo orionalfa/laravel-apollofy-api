@@ -82,6 +82,23 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
+    public function getLast24HoursPlaysByOwner(Request $request)
+    {
+        $owner_id = $request->route('owner_id');
+
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getLast24HoursPlaysByOwner($owner_id);
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
+
 
 
     public function storeGlobalPlay(Request $request)
