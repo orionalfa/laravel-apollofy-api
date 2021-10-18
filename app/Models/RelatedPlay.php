@@ -17,5 +17,35 @@ class RelatedPlay extends Model
         return $data;
     }
 
+    public function getMostRelatedTracks()
+    {
+        // echo $start, "\n";
+        $data = DB::table('related_plays')
+            ->select('prev_track_id', 'next_track_id', DB::raw('count(*) as total'))
+            ->groupBy('prev_track_id')
+            ->groupBy('next_track_id')
+            ->orderByRaw('total DESC')
+            ->get();
+
+        // return json_encode($data);
+        return $data;
+    }
+
+    public function getMostRelatedTracksById($track_id)
+    {
+
+        $data = DB::table('related_plays')
+            ->select('next_track_id', DB::raw('count(*) as total'))
+            ->where('prev_track_id', '=', $track_id)
+            ->groupBy('next_track_id')
+            ->orderByRaw('total DESC')
+            ->get();
+
+        // return json_encode($data);
+        return $data;
+    }
+
+
+
     use HasFactory;
 }

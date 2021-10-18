@@ -33,4 +33,34 @@ class RelatedPlayController extends Controller
             "message" => "Related play record stored"
         ], 201);
     }
+
+    public function getMostRelatedTracks()
+    {
+        $relatedPlay = new RelatedPlay();
+        $data = $relatedPlay->getMostRelatedTracks();
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
+    public function getMostRelatedTracksById(Request $request)
+    {
+        $track_id = $request->route('track_id');
+
+        $relatedPlay = new RelatedPlay();
+        $data = $relatedPlay->getMostRelatedTracksById($track_id);
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
 }
