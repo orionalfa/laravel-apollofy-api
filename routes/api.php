@@ -33,6 +33,8 @@ Route::get('/last-hour-plays-by-owner/{owner_id}', [GlobalPlayController::class,
 
 Route::get('/last-24h-plays-by-owner/{owner_id}', [GlobalPlayController::class, 'getLast24HoursPlaysByOwner']);
 
+Route::get('/last-24h-most-played-by-owner/{owner_id}', [GlobalPlayController::class, 'getLast24HMostPlayedTracksByOwner']);
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

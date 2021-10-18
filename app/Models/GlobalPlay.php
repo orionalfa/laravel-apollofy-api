@@ -145,6 +145,44 @@ class GlobalPlay extends Model
         return count($dataToday) + count($dataYesterday);
     }
 
+    public function getLast24HMostPlayedTracksByOwner($owner_id)
+    {
+        echo 'getLast24HMostPlayedTracksByOwner', "\n";
+        // $from = date('2018-01-01');
+        // $to = date('2018-05-02');
+
+        // Reservation::whereBetween('reservation_from', [$from, $to])->get();
+
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
+        // $today = $date->format("Y-m-d");
+        // $now = $date->format("H:i:s");
+        // ALERT : 26h interval because post timestamp has -2h diff with real time
+        $oneHourInterval = new DateInterval('PT26H');
+        $date->sub($oneHourInterval);
+        // $yesterday = $date->format("Y-m-d");
+        // $twentyFourHoursAgoTime = $date->format("H:i:s");
+
+        // echo $today, "\n";
+        // echo $yesterday, "\n";
+        // echo $twentyFourHoursAgoTime, "\n";
+        // $data = [];
+
+        $start = $date->format("Y-m-d H:i:s");
+        echo $start, "\n";
+
+        $data = DB::table('global_plays')
+            ->where('track_owner_id', '=', $owner_id)
+            ->where('created_at', '>', $start)
+            ->get();
+
+        // $data = array_merge(json_decode($dataYesterday), json_decode($dataToday));
+
+        // return json_encode($data);
+        return $data;
+    }
+
+
 
 
     use HasFactory;
