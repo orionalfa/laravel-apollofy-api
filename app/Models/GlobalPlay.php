@@ -170,6 +170,31 @@ class GlobalPlay extends Model
         return $data;
     }
 
+    public function getLastWeekMostPlayedTracksByOwner($owner_id)
+    {
+        // echo 'getLast24HMostPlayedTracksByOwner', "\n";
+
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
+        // ALERT : 26h interval because post timestamp has -2h diff with real time
+        $oneHourInterval = new DateInterval('P7D');
+        $date->sub($oneHourInterval);
+
+        $start = $date->format("Y-m-d H:i:s");
+        // echo $start, "\n";
+
+        $data = DB::table('global_plays')
+            ->select('track_id', DB::raw('count(*) as total'))
+            ->where('track_owner_id', '=', $owner_id)
+            ->where('created_at', '>', $start)
+            ->groupBy('track_id')
+            ->orderByRaw('total DESC')
+            ->get();
+
+        // return json_encode($data);
+        return $data;
+    }
+
 
 
 

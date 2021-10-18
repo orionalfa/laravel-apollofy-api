@@ -114,6 +114,22 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
+    public function getLastWeekMostPlayedTracksByOwner(Request $request)
+    {
+        $owner_id = $request->route('owner_id');
+
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getLastWeekMostPlayedTracksByOwner($owner_id);
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
 
 
 
