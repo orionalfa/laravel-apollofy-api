@@ -170,13 +170,35 @@ class GlobalPlay extends Model
         return $data;
     }
 
-    public function getLastWeekMostPlayedTracksByOwner($owner_id)
+    public function getLast24HMostPlayedGlobal()
     {
         // echo 'getLast24HMostPlayedTracksByOwner', "\n";
 
         $tz = new DateTimeZone('Europe/Madrid');
         $date = new DateTime("NOW", $tz);
         // ALERT : 26h interval because post timestamp has -2h diff with real time
+        $oneHourInterval = new DateInterval('PT26H');
+        $date->sub($oneHourInterval);
+
+        $start = $date->format("Y-m-d H:i:s");
+        // echo $start, "\n";
+
+        $data = DB::table('global_plays')
+            ->select('track_id', DB::raw('count(*) as total'))
+            ->where('created_at', '>', $start)
+            ->groupBy('track_id')
+            ->orderByRaw('total DESC')
+            ->get();
+
+        // return json_encode($data);
+        return $data;
+    }
+
+
+    public function getLastWeekMostPlayedTracksByOwner($owner_id)
+    {
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
         $oneHourInterval = new DateInterval('P7D');
         $date->sub($oneHourInterval);
 
@@ -195,6 +217,28 @@ class GlobalPlay extends Model
         return $data;
     }
 
+    public function getLastWeekMostPlayedGlobal()
+    {
+        // echo 'getLast24HMostPlayedTracksByOwner', "\n";
+
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
+        $oneHourInterval = new DateInterval('P7D');
+        $date->sub($oneHourInterval);
+
+        $start = $date->format("Y-m-d H:i:s");
+        // echo $start, "\n";
+
+        $data = DB::table('global_plays')
+            ->select('track_id', DB::raw('count(*) as total'))
+            ->where('created_at', '>', $start)
+            ->groupBy('track_id')
+            ->orderByRaw('total DESC')
+            ->get();
+
+        // return json_encode($data);
+        return $data;
+    }
 
 
 

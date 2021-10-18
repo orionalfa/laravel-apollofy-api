@@ -27,15 +27,19 @@ Route::get('/last-global-activity', [GlobalPlayController::class, 'getLastGlobal
 Route::get('/yesterday-global-activity-by-hours', [GlobalPlayController::class, 'getYesterdayGlobalActivityByHours']);
 // Route::get('/yesterday-global-activity-by-hours/:currentuser', [GlobalPlayController::class, 'getYesterdayGlobalActivityByHours']);
 
-Route::get('/total-plays-by-owner/{owner_id}', [GlobalPlayController::class, 'getTotalPlaysByOwner']);
+Route::get('/total-plays/{owner_id}', [GlobalPlayController::class, 'getTotalPlaysByOwner']);
 
-Route::get('/last-hour-plays-by-owner/{owner_id}', [GlobalPlayController::class, 'getLastHourPlaysByOwner']);
+Route::get('/last-hour-plays/{owner_id}', [GlobalPlayController::class, 'getLastHourPlaysByOwner']);
 
-Route::get('/last-24h-plays-by-owner/{owner_id}', [GlobalPlayController::class, 'getLast24HoursPlaysByOwner']);
+Route::get('/last-24h-plays/{owner_id}', [GlobalPlayController::class, 'getLast24HoursPlaysByOwner']);
 
-Route::get('/last-24h-most-played-by-owner/{owner_id}', [GlobalPlayController::class, 'getLast24HMostPlayedTracksByOwner']);
+Route::get('/last-24h-most-played', [GlobalPlayController::class, 'getLast24HMostPlayedGlobal']);
 
-Route::get('/last-week-most-played-by-owner/{owner_id}', [GlobalPlayController::class, 'getLastWeekMostPlayedTracksByOwner']);
+Route::get('/last-24h-most-played/{owner_id}', [GlobalPlayController::class, 'getLast24HMostPlayedTracksByOwner']);
+
+Route::get('/last-week-most-played', [GlobalPlayController::class, 'getLastWeekMostPlayedGlobal']);
+
+Route::get('/last-week-most-played/{owner_id}', [GlobalPlayController::class, 'getLastWeekMostPlayedTracksByOwner']);
 
 
 

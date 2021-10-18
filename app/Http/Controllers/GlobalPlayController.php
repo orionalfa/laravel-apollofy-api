@@ -7,7 +7,21 @@ use Illuminate\Http\Request;
 
 class GlobalPlayController extends Controller
 {
-    //
+    public function storeGlobalPlay(Request $request)
+    {
+        $gbPlay = new GlobalPlay;
+        $gbPlay->track_id = $request->trackId;
+        $gbPlay->track_owner_id = $request->trackOwnerId;
+        $gbPlay->track_player_id = $request->trackPlayerId;
+        $gbPlay->save();
+
+        // ALERT : post timestamp has 2h gap with real time
+
+        return response()->json([
+            "message" => "Play record created"
+        ], 201);
+    }
+
     public function getAllGlobalPlays()
     {
         $gobalPlay = new GlobalPlay();
@@ -114,6 +128,22 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
+    public function getLast24HMostPlayedGlobal()
+    {
+
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getLast24HMostPlayedGlobal();
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
+
     public function getLastWeekMostPlayedTracksByOwner(Request $request)
     {
         $owner_id = $request->route('owner_id');
@@ -130,23 +160,17 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
-
-
-
-
-    public function storeGlobalPlay(Request $request)
+    public function getLastWeekMostPlayedGlobal()
     {
-        $gbPlay = new GlobalPlay;
-        $gbPlay->track_id = $request->trackId;
-        $gbPlay->track_owner_id = $request->trackOwnerId;
-        $gbPlay->track_player_id = $request->trackPlayerId;
-        $gbPlay->save();
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getLastWeekMostPlayedGlobal();
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
 
-        // ALERT : post timestamp has 2h gap with real time
+            ];
 
-
-        return response()->json([
-            "message" => "Play record created"
-        ], 201);
+        return response()->json($response);
     }
 }
