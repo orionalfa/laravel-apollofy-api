@@ -76,14 +76,15 @@ class GlobalPlay extends Model
         return json_encode($data);
     }
 
-    public function getTotalPlaysByOwner()
+    public function getTotalPlaysByOwner($owner_id)
     {
-        // TODO
+        // echo $owner_id, "\n";
+        // $owner_id = "61547811a05e38da71626988";
+
         $data = DB::table('global_plays')
-            ->whereDate('created_at', '>=', '2021-10-16')
-            ->whereTime('created_at', '>', '16:00:00')
+            ->where('track_owner_id', '=', $owner_id)
             ->get();
-        return $data;
+        return count($data);
     }
 
     use HasFactory;
