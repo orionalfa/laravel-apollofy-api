@@ -77,6 +77,54 @@ class GlobalPlay extends Model
         return json_encode($data);
     }
 
+
+    public function getYesterdayActivityByHours($owner_id)
+    {
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
+        $oneDayInterval = new DateInterval('P1D');
+        $date->sub($oneDayInterval);
+
+        $yesterday = $date->format("Y-m-d");
+
+        $data = [];
+
+        for ($i = 0; $i < 24; $i++) {
+            $strI = strval($i);
+            if ($i < 10) {
+                $start = "0" . $strI . ":00:00";
+            } else {
+                $start = $strI . ":00:00";
+            }
+
+            $j = $i;
+            $strJ = strval($j);
+            if ($j < 10) {
+                $end = "0" . $strJ . ":59:59";
+            } else {
+                $end = $strJ . ":59:59";
+            }
+            $interval = DB::table('global_plays')
+                ->whereDate('created_at', '=', $yesterday)
+                ->whereTime('created_at', '>=', $start)
+                ->whereTime('created_at', '<=', $end)
+                ->where('track_owner_id', '=', $owner_id)
+                ->get();
+
+            $intervalActivity = [
+                "start" => $yesterday . " " . $start,
+                "end" => $yesterday . " " . $end,
+                "playsCount" => count($interval)
+
+            ];
+            array_push($data, $intervalActivity);
+            // array_push($data, count($interval));
+        }
+
+        return json_encode($data);
+    }
+
+
     public function getTotalPlaysByOwner($owner_id)
     {
         // echo $owner_id, "\n";

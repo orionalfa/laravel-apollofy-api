@@ -20,6 +20,7 @@ Route::post('/global-plays', [GlobalPlayController::class, 'storeGlobalPlay']);
 Route::get('/global-plays', [GlobalPlayController::class, 'getAllGlobalPlays']);
 Route::get('/last-global-activity', [GlobalPlayController::class, 'getLastGlobalActivity']);
 Route::get('/yesterday-global-activity-by-hours', [GlobalPlayController::class, 'getYesterdayGlobalActivityByHours']);
+Route::get('/yesterday-activity-by-hours/{owner_id}', [GlobalPlayController::class, 'getYesterdayActivityByHours']);
 Route::get('/total-plays/{owner_id}', [GlobalPlayController::class, 'getTotalPlaysByOwner']);
 Route::get('/last-hour-plays/{owner_id}', [GlobalPlayController::class, 'getLastHourPlaysByOwner']);
 Route::get('/last-24h-total-plays/{owner_id}', [GlobalPlayController::class, 'getLast24HoursPlaysByOwner']);
