@@ -45,6 +45,29 @@ class RelatedPlay extends Model
         return $data;
     }
 
+    public function getRandomRelatedTrackById($track_id)
+    {
+        $relatedPlay = new RelatedPlay();
+        $relatedTracks = $relatedPlay->getMostRelatedTracksById($track_id);
+        $size = count($relatedTracks);
+        if ($size > 0) {
+            if ($size > 5) {
+                $size = 5;
+            }
+            $randomIndex = random_int(0, $size - 1);
+            // $randomIndex = time() % $size;
+            // echo $randomIndex, "\n";
+
+            $data = $relatedTracks[$randomIndex];
+        } else {
+            $data = [];
+        }
+        // return json_encode($data);
+        return json_encode($data);
+    }
+
+
+
 
 
     use HasFactory;

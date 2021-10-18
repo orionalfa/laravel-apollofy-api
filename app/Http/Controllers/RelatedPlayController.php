@@ -63,4 +63,20 @@ class RelatedPlayController extends Controller
 
         return response()->json($response);
     }
+
+    public function getRandomRelatedTrackById(Request $request)
+    {
+        $track_id = $request->route('track_id');
+
+        $relatedPlay = new RelatedPlay();
+        $data = $relatedPlay->getRandomRelatedTrackById($track_id);
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
 }
