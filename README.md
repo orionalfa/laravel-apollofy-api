@@ -67,6 +67,6 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 > php artisan make:migration create_related_plays_table
 > php artisan migrate
-> $ php artisan make:model RelatedPlay
+> php artisan make:model RelatedPlay
 > php artisan make:controller RelatedPlayController
 

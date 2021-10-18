@@ -25,6 +25,7 @@ Route::post('/related-plays', [RelatedPlayController::class, 'storeRelatedPlay']
 Route::get('/last-global-activity', [GlobalPlayController::class, 'getLastGlobalActivity']);
 
 Route::get('/yesterday-global-activity-by-hours', [GlobalPlayController::class, 'getYesterdayGlobalActivityByHours']);
+// Route::get('/yesterday-global-activity-by-hours/:currentuser', [GlobalPlayController::class, 'getYesterdayGlobalActivityByHours']);
 
 
 
