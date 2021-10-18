@@ -66,6 +66,23 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
+    public function getLastHourPlaysByOwner(Request $request)
+    {
+        $owner_id = $request->route('owner_id');
+
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getLastHourPlaysByOwner($owner_id);
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
+
 
     public function storeGlobalPlay(Request $request)
     {
@@ -74,6 +91,9 @@ class GlobalPlayController extends Controller
         $gbPlay->track_owner_id = $request->trackOwnerId;
         $gbPlay->track_player_id = $request->trackPlayerId;
         $gbPlay->save();
+
+        // ALERT : post timestamp has 2h gap with real time
+
 
         return response()->json([
             "message" => "Play record created"

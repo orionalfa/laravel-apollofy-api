@@ -87,5 +87,29 @@ class GlobalPlay extends Model
         return count($data);
     }
 
+    public function getLastHourPlaysByOwner($owner_id)
+    {
+        // echo 'getLastHourPlaysByOwner', "\n";
+
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
+        // ALERT : 3h interval because post timestamp has 2h gap with real time
+        $oneHourInterval = new DateInterval('PT3H');
+        $date->sub($oneHourInterval);
+
+        $today = $date->format("Y-m-d");
+        $oneHourAgo = $date->format("h:i:s");
+
+        // echo $oneHourAgo, "\n";
+
+        $data = DB::table('global_plays')
+            ->where('track_owner_id', '=', $owner_id)
+            ->whereDate('created_at', '=', $today)
+            ->whereTime('created_at', '>', $oneHourAgo)
+            ->get();
+        return count($data);
+    }
+
+
     use HasFactory;
 }

@@ -15,6 +15,7 @@ class CreateGlobalPlaysHistory extends Migration
     {
         Schema::create('global_plays', function (Blueprint $table) {
             $table->id();
+            // ALERT : timestamp has 2h gap with real time
             $table->timestamps();
             $table->string('track_id');
             $table->string('track_owner_id');
