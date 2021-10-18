@@ -18,6 +18,7 @@ class CreateRelatedPlaysTable extends Migration
             $table->timestamps();
             $table->string('prev_track_id');
             $table->string('next_track_id');
+            $table->string('user_player_id');
         });
     }
 

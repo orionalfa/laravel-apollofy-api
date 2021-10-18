@@ -26,6 +26,7 @@ class RelatedPlayController extends Controller
         $relatedPlay = new RelatedPlay;
         $relatedPlay->prev_track_id = $request->prevTrackId;
         $relatedPlay->next_track_id = $request->nextTrackId;
+        $relatedPlay->user_player_id = $request->userPlayerId;
         $relatedPlay->save();
 
         return response()->json([

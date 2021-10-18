@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class RelatedPlay extends Model
 {
 
-    protected $fillable  = ['prev_track_id', 'next_track_id'];
+    protected $fillable  = ['prev_track_id', 'next_track_id', 'user_player_id'];
 
     public function get()
     {
