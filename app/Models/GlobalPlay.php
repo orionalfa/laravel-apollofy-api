@@ -310,6 +310,40 @@ class GlobalPlay extends Model
         return $data;
     }
 
+    public function getWeekTop5Random()
+    {
+        $tz = new DateTimeZone('Europe/Madrid');
+        $date = new DateTime("NOW", $tz);
+        $oneHourInterval = new DateInterval('P7D');
+        $date->sub($oneHourInterval);
+
+        $start = $date->format("Y-m-d H:i:s");
+
+        $tracksList = DB::table('global_plays')
+            ->select('track_id', DB::raw('count(*) as total'))
+            ->where('created_at', '>', $start)
+            ->groupBy('track_id')
+            ->orderByRaw('total DESC')
+            ->get();
+
+        $size = count($tracksList);
+        if ($size >= 5) {
+            $top5 = array_slice(json_decode($tracksList), 0, 5);
+            shuffle($top5);
+            $data = $top5;
+        } else {
+            $placeholderTrack = [
+                'track_id' => '615c32898ac7d2a27005fd04',
+                'total' => 1,
+            ];
+            $data = [$placeholderTrack, $placeholderTrack, $placeholderTrack, $placeholderTrack, $placeholderTrack];
+        }
+
+        return json_encode($data);
+        // return $data;
+    }
+
+
 
 
     use HasFactory;

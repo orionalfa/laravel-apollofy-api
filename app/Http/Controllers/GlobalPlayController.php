@@ -206,4 +206,20 @@ class GlobalPlayController extends Controller
 
         return response()->json($response);
     }
+
+    public function getWeekTop5Random()
+    {
+        $gobalPlay = new GlobalPlay();
+        $data = $gobalPlay->getWeekTop5Random();
+        $response =
+            [
+                "status" => "success",
+                "data" => json_decode($data, true)
+
+            ];
+
+        return response()->json($response);
+    }
+
+
 }

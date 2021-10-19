@@ -29,6 +29,7 @@ Route::get('/last-24h-most-played/{owner_id}', [GlobalPlayController::class, 'ge
 Route::get('/last-week-most-played', [GlobalPlayController::class, 'getLastWeekMostPlayedGlobal']);
 Route::get('/last-week-most-played/{owner_id}', [GlobalPlayController::class, 'getLastWeekMostPlayedTracksByOwner']);
 Route::get('/last-week-most-played-usr/{user_id}', [GlobalPlayController::class, 'getLastWeekMostPlayedTracksByUser']);
+Route::get('/week-top-5-random', [GlobalPlayController::class, 'getWeekTop5Random']);
 
 
 
