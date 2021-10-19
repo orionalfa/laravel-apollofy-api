@@ -36,10 +36,10 @@ class GlobalPlayController extends Controller
         return response()->json($response);
     }
 
-    public function getLastGlobalActivity()
+    public function getTotalGlobalActivity()
     {
         $gobalPlay = new GlobalPlay();
-        $data = $gobalPlay->getLastGlobalActivity();
+        $data = $gobalPlay->getTotalGlobalActivity();
         $response =
             [
                 "status" => "success",

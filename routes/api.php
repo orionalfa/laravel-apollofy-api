@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/global-plays', [GlobalPlayController::class, 'storeGlobalPlay']);
 Route::get('/global-plays', [GlobalPlayController::class, 'getAllGlobalPlays']);
-Route::get('/last-global-activity', [GlobalPlayController::class, 'getLastGlobalActivity']);
+Route::get('/total-global-activity', [GlobalPlayController::class, 'getTotalGlobalActivity']);
 Route::get('/yesterday-global-activity-by-hours', [GlobalPlayController::class, 'getYesterdayGlobalActivityByHours']);
 Route::get('/yesterday-activity-by-hours/{owner_id}', [GlobalPlayController::class, 'getYesterdayActivityByHours']);
 Route::get('/total-plays/{owner_id}', [GlobalPlayController::class, 'getTotalPlaysByOwner']);

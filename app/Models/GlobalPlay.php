@@ -19,13 +19,9 @@ class GlobalPlay extends Model
         return $data;
     }
 
-    public function getLastGlobalActivity()
+    public function getTotalGlobalActivity()
     {
-        // TODO
-        $data = DB::table('global_plays')
-            ->whereDate('created_at', '>=', '2021-10-16')
-            ->whereTime('created_at', '>', '16:00:00')
-            ->get();
+        $data = DB::table('global_plays')->count();
         return $data;
     }
 
